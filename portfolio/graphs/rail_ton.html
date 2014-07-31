@@ -1,0 +1,95 @@
+<htm<html>
+  <head>
+    <title>FAF3 Arc</title>
+   
+    <script type="text/javascript" src="../lib/protovis.js"></script>
+    <script type="text/javascript" src="../data/Statesdata4.js"></script>
+<!-- CSS Files -->
+	<link type="text/css" href="../css/base.css" rel="stylesheet" />
+	<link type="text/css" rel="stylesheet" href="../css/ex.css"/>
+    </style>
+	
+  </head>
+  <body> <div id="right"><div id="fig">
+  
+<div id="top-container">
+	<a href="../Index.html" title="All Modes by Ton">
+	<img align="left" src="../image/r_ton.png" border=0 width=100% height=118>
+		
+</div>
+  <img src="../image/rail2.jpg" border=0 width=100% height=800></a>
+<div id="left-container">
+       
+        <ul id="id-list"></ul>
+	<div style="text-align:center;"><a id="update" href="allton.html" class="theme button white">All Modes</a></div> 
+	<div style="text-align:center;"><a id="update" href="truck_ton.html" class="theme button white">Truck</a></div> 
+    <div style="text-align:center;"><a id="update" href="rail_ton.html" class="theme button white">Rail</a></div> 
+	<div style="text-align:center;"><a id="update" href="air_ton.html" class="theme button white">Air</a></div> 
+	<div style="text-align:center;"><a id="update" href="w_ton.html" class="theme button white">Water</a></div> 
+</div>
+
+  
+  
+<div id="center-container"><div id="fig">
+      <script type="text/javascript+protovis">
+	  
+//var background = new pv.panel()
+//	.width(1400)
+//	.height(800)
+//	.fillStyle("rgba(255,255,255,0.8)")
+	
+	//Setup the panel
+var vis = new pv.Panel()
+    .width(880)
+    .height(700)
+	.right(800)
+	.left(-500)
+	.top(0)
+    .bottom(200)
+	
+
+	//Add the arcs for the tonage
+
+var arc = vis.add(pv.Layout.Arc)
+    .nodes(rail_weight.nodes)
+    .links(rail_weight.links)
+	.directed(1) //swicthing from 0 to 1 will flip the direction of the arcs
+	.orient("right")
+	//To sort by regional grouping uncomment the following
+    .sort(function(a, b) a.group == b.group
+        ? b.linkDegree - a.lin0
+        : b.group - a.group);
+		
+		
+	arc.link.add(pv.Line)
+	.event("mouseover", function() this.strokeStyle("rgb(255,0,0)"))
+	.event("mouseout", function() this.strokeStyle("rgba(84,84,84,.3)"))
+	.title(function(d,p) "This link to " + d.nodeName+  " represents " + p.text +"% of freight flowing out of this state in terms of weight");
+
+
+//Add the nodes for the states and make size dependant on the number of associated links
+	arc.node.add(pv.Dot)
+	.size(function(d) d.linkDegree + 4)
+    .fillStyle(pv.Colors.category20().by(function(d) d.group))
+    .strokeStyle(function() this.fillStyle().darker());
+
+
+	arc.label.add(pv.Label)
+
+
+	vis.render();
+
+      </script>
+    </div>
+  </div>
+  <div id="right-container">
+	<div style="text-align:center;"><a id="update" href="rail_ton.html" class="theme button white">Tonnage</a></div> 
+	<div style="text-align:center;"><a id="update" href="rail_val.html" class="theme button white">Value</a></div> 
+		<div style="text-align:center;">
+		<p>There are a few states that recieve the majority of rail traffic (the big dots). Investment or regulation changes in these states that help to reduce bottlenecks should have a possitive impact on the economic development potential of most of the other states.</p>
+		<p>The Arc diagram to the left illustrates the freight connections between the various states.</p>
+		<p>This diagram should be useful for policy makers as they determine where to focus infrasturture spending. This graph allows for an individual to see that infrastructure funding in some states will impact a number of other states.</p>
+	</div>
+	</body>
+
+</html>

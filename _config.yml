@@ -1,0 +1,10 @@
+# Site settings
+title: "John Stevens: Data Analyst, Teacher, Scholar"
+email: j.o.stevens@icloud.com
+description: "Site for tutorials, working papers and other things"
+baseurl: ""
+url: "http://yourdomain.com"
+
+# Build settings
+markdown: kramdown
+permalink: pretty
